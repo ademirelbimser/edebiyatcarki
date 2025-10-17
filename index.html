@@ -129,14 +129,12 @@
             <div class="result-card hidden" id="resultCard"></div>
           </div>
         </div>
-        <!--
         <div class="json-upload">
           <label for="jsonFile">Kartları JSON Dosyasından Yükle (isteğe bağlı):</label>
           <input type="file" id="jsonFile" accept="application/json">
           <div style="margin-top:8px"><button id="loadJsonBtn">YÜKLE</button></div>
           <div style="font-size:12px;color:#bfe9ff;margin-top:8px">Eğer dosya yüklemezseniz, sunucuya yüklenmiş örnek JSON (varsa) otomatik kullanılır.</div>
         </div>
-        -->
     </div>
     </div>
   </div>
@@ -283,7 +281,7 @@
     }
 
     // JSON upload handler (user file)
-    //document.getElementById('loadJsonBtn').addEventListener('click', loadJsonData);
+    document.getElementById('loadJsonBtn').addEventListener('click', loadJsonData);
     function loadJsonData(){
       const fileInput = document.getElementById('jsonFile'); const file = fileInput.files[0];
       if(!file){ alert('Lütfen bir JSON dosyası seçin!'); return; }
@@ -320,8 +318,6 @@
     
       const workIndex = cabinIndex % literaryWorks.length; 
       
-      //const work = literaryWorks[workIndex];
-
       const work = literaryWorks.find(item => item.id === workIndex.toString());
 
 
