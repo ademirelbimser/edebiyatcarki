@@ -268,7 +268,10 @@
       card.querySelector('h4').textContent = work['Başlık'] || work['title'] || 'Başlıksız';
       card.querySelector('.type').textContent = work['Tür'] || work['type'] || 'Tür yok';
       card.querySelector('.author span').textContent = work['Yazar'] || work['author'] || 'Yok';
-      card.querySelector('.text').textContent = work['Metin'] || work['text'] || 'İçerik yok';
+      //card.querySelector('.text').textContent = work['Metin'] || work['text'] || 'İçerik yok';
+
+      const rawText = work['Metin'] || work['text'] || 'İçerik yok';
+      card.querySelector('.text').innerHTML = rawText.replace(/\n/g, '<br>');
 
       card.classList.remove('hidden');
       document.getElementById('defaultResultText').classList.add('hidden');
