@@ -1,533 +1,360 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-  <title>Edebiyat Çarkı — Basit, Türkçe ve Responsive</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edebiyat Çarkı</title>
   <style>
-    /* Basit reset ve değişkenler */
     :root{
-      --arka: #0b1220;        /* Gece teması koyu arka plan */
-      --metin: #e8eefc;       /* Açık metin rengi */
-      --ikincil: #9bb4ff;     /* İkincil vurgu */
-      --vurgulu: #52e3c2;     /* Buton/aktivite vurgusu */
-      --tekerlek-boyut: clamp(260px, 70vmin, 540px); /* Çark çapı, ekrana göre */
-      --kabin-boyut: clamp(28px, 6vmin, 46px);       /* Kabin kutusu */
-      --panel-genislik: min(520px, 92vw);            /* Sağ panel max genişlik */
-      --radius-ic: calc(var(--tekerlek-boyut)/2 - var(--kabin-boyut) - 10px); /* Kabinlerin merkezden uzaklığı */
-      --adim: 30deg;           /* 360/12 = 30 derece */
-      --golge: 0 6px 24px rgba(0,0,0,0.35);
-      --kutu: #121a2b;
-      --kutu-kenar: #223050;
+      --bg:#071428; /* gece gökyüzü */
+      --wheel:#2a6f9e;
+      --spoke:#1f4f6a;
+      --leg:#6b4b3a;
+      --shadow: rgba(0,0,0,0.32);
+    }
+    html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:var(--bg); display:flex;align-items:center;justify-content:center}
+    .wrap{width:980px;max-width:96vw;padding:18px;background:linear-gradient(180deg,#071428 0%, #0b2a3a 100%);border-radius:12px;box-shadow:0 10px 40px var(--shadow);color:#e7f6ff}
+    h1{font-size:18px;margin:0 0 12px;color:#dbefff}
+    /* layout: wheel on left, controls+card on right */
+    .stage{display:flex;gap:20px;align-items:flex-start}
+    .canvas{width:62%;display:flex;align-items:center;justify-content:center;min-height:520px}
+    .controls{width:38%;display:flex;flex-direction:column;align-items:stretch;gap:12px}
+    .text{white-space: pre-line;}
+    button.spin-btn{width:100%;padding:14px;border-radius:10px;border:none;background:#1f7bd6;color:white;font-weight:600;cursor:pointer;user-select:none}
+    .hint{margin-top:6px;font-size:13px;color:#cfe8ff}
+    /* make the SVG responsive */
+    svg{max-width:100%;height:auto;display:block}
+    /* cabin style */
+    .cabin{stroke:#b26e00;stroke-width:1}
+    .cabinNumberNight{font-size:12px;fill:#102027;font-weight:800}
+    /* subtle shadow under wheel */
+    .ground{fill:#071a28}
+
+    /* Custom styles for literary content */
+    .json-upload {
+      text-align: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      width: 100%;
     }
 
-    *{ box-sizing: border-box; }
-    body{
-      margin:0;
-      background: radial-gradient(1200px 800px at 20% 10%, #0f1a33, #091121 55%, #050a14);
-      color: var(--metin);
-      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
+    .json-upload input { display:block;margin:8px auto;padding:10px;border:2px dashed #4ecdc4;border-radius:8px;width:85%;background:transparent;color:#e7f6ff }
+    .json-upload button { padding:8px 14px;background:#4ecdc4;color:#032027;border:none;border-radius:8px;cursor:pointer;font-weight:700 }
 
-    /* Sayfa başlığı */
-    header{
-      padding: 18px 16px;
-      border-bottom: 1px solid #1b2745;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0));
-    }
-    header h1{
-      margin:0;
-      font-size: clamp(18px, 3.6vw, 24px);
-      letter-spacing: 0.3px;
-    }
-    header p{
-      margin: 6px 0 0 0;
-      color: #b9c7ef;
-      font-size: 14px;
-    }
+    .result-container { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius: 12px; padding: 14px; width:100%; box-shadow: 0 6px 18px rgba(0,0,0,0.4)}
+    .result-title { color: #dbefff; margin:0 0 8px 0 }
+    .result-card { background: linear-gradient(135deg, rgba(110, 203, 245, 0.07), rgba(194, 233, 251, 0.04)); border-radius: 10px; padding: 14px; border:1px solid rgba(255,255,255,0.04)}
+    .result-card h3{margin:0;color:#fff}
+    .result-card p{margin:8px 0;color:#cfe8ff}
+    .type { background:#ff6b6b;color:white;padding:4px 8px;border-radius:12px;font-weight:700 }
 
-    /* Ana düzen: geniş ekranda iki sütun, mobilde tek sütun */
-    .sayfa{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      padding: 16px;
-    }
-    @media (min-width: 980px){
-      .sayfa{
-        grid-template-columns: 1fr var(--panel-genislik);
-        align-items: start;
-      }
-    }
-
-    /* Sol: Çark kartı */
-    .kart{
-      background: var(--kutu);
-      border: 1px solid var(--kutu-kenar);
-      border-radius: 14px;
-      box-shadow: var(--golge);
-      padding: 14px;
-    }
-    .kart-baslik{
-      display:flex; align-items:center; justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .kart-baslik h2{
-      margin:0;
-      font-size: 18px;
-    }
-    .ipucu{
-      color:#b6c3e8;
-      font-size:13px;
-    }
-
-    /* Çark alanı */
-    .cark-kapsayici{
-      display: grid;
-      place-items: center;
-      padding: 8px;
-    }
-    .cark{
-      position: relative;
-      width: var(--tekerlek-boyut);
-      height: var(--tekerlek-boyut);
-      border: 3px dashed #3a4f84;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(82,227,194,0.06), rgba(0,0,0,0)),
-        radial-gradient(circle at 20% 30%, rgba(155,180,255,0.08), rgba(0,0,0,0));
-      transition: filter 200ms ease;
-      user-select: none;
-      touch-action: none;
-      overflow: visible; /* kabin gölgeleri taşınca */
-    }
-    .cark-merkez{
-      position:absolute;
-      inset: 50% auto auto 50%;
-      width: clamp(26px, 5.5vmin, 40px);
-      height: clamp(26px, 5.5vmin, 40px);
-      background: conic-gradient(from 0deg, #53e3c2, #9bb4ff, #53e3c2);
-      border: 3px solid #0d1526;
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      box-shadow: 0 0 0 3px #203054, 0 6px 24px rgba(0,0,0,0.45);
-    }
-
-    /* Her bir kabin (12 adet) */
-    .kabin{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: var(--kabin-boyut);
-      height: var(--kabin-boyut);
-      transform-origin: center calc(-1 * var(--radius-ic)); /* dönerken merkeze bağlı kalsın */
-      display: grid;
-      place-items:center;
-      color: #0b1220;
-      font-weight: 700;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
-      border: 2px solid rgba(255,255,255,0.65);
-      background: #ffd86b; /* varsayılan, JS ile renk dağıtacağız */
-      transition: transform 120ms ease, background 200ms ease, scale 200ms ease;
-    }
-    .kabin .numara{ font-size: clamp(12px, 2.8vmin, 16px); }
-    .kabin.secili{
-      background: #52e3c2 !important;
-      border-color: white;
-      scale: 1.08;
-      z-index: 2;
-    }
-
-    /* Üstte sabit bir işaretçi (seçimi gösterir) */
-    .isaretci{
-      position:absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0; height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 16px solid #ffd86b;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
-    }
-
-    /* Kontroller (buton, dosya yükleme, ayarlar) */
-    .kontroller{
-      display: grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .satir{
-      display:flex;
-      flex-wrap: wrap;
-      align-items:center;
-      gap: 10px;
-    }
-
-    button, .buton{
-      background: linear-gradient(180deg, #52e3c2, #32b79a);
-      color: #07241d;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-      transition: transform 80ms ease;
-    }
-    button:hover{ transform: translateY(-1px); }
-    button:active{ transform: translateY(0); }
-
-    .ikaz{
-      color: #ffcd7a;
-      font-size: 13px;
-    }
-
-    input[type="file"]{
-      appearance:none;
-      background:#0f1a2a;
-      border:1px solid #2a3b63;
-      color:#dfe8ff;
-      border-radius:10px;
-      padding:10px;
-      max-width: 100%;
-    }
-
-    input[type="range"]{
-      width: 200px;
-    }
-
-    /* Sağ: Sonuç kartı */
-    .sonuc-karti{
-      background: var(--kutu);
-      border: 1px solid var(--kutu-kenar);
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: var(--golge);
-    }
-    .sonuc-karti h3{ margin: 8px 0 6px 0; }
-    .etiket{
-      display: inline-block;
-      background: #203054;
-      border: 1px solid #37508b;
-      color:#cfe1ff;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      margin-right: 6px;
-    }
-    .bos{
-      color:#9fb0dc;
-      font-style: italic;
-      margin: 8px 0;
-    }
-
-    /* Alt bilgi: nasıl kullanılır */
-    .alt-bilgi{
-      margin-top: 12px;
-      color: #b6c3e8;
-      font-size: 13px;
-    }
-
-    /* Responsive düzen iyileştirmeleri */
-    @media (max-width: 979px){
-      .sonuc-karti{ order: 2; }
+    @media (max-width: 900px) {
+      .stage{flex-direction:column}
+      .canvas{width:100%}
+      .controls{width:100%}
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Edebiyat Çarkı — Basitleştirilmiş Sürüm</h1>
-    <p>Basılı tutup çarkı hızlandırın, bırakınca yavaşlayıp dursun. JSON dosyasıyla kendi eserlerinizi yükleyin.</p>
-  </header>
+  <div class="wrap">
+    <h1 class="text-align:center;">Edebiyat Çarkı</h1>
 
-  <main class="sayfa" aria-live="polite">
-    <!-- SOL: ÇARK ve KONTROLLER -->
-    <section class="kart" aria-label="Edebiyat Çarkı">
-      <div class="kart-baslik">
-        <h2>Çark</h2>
-        <span class="ipucu">12 kabin • Seçim işaretçisi yukarıda</span>
+    <div class="stage">
+      <div class="canvas">
+        <!-- SVG ferris wheel -->
+        <svg id="svgWheel" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" aria-label="Dönme dolap örneği">
+          <!-- sky background -->
+          <rect id="sky" x="0" y="0" width="900" height="520" fill="#02102a" />
+
+          <!-- stars group (generated in JS) -->
+          <g id="stars"></g>
+
+          <!-- ground / shadow -->
+          <rect x="0" y="520" width="900" height="80" fill="#071a28"/>
+          <ellipse id="groundShadow" cx="450" cy="560" rx="160" ry="24" fill="rgba(0,0,0,0.45)"/>
+
+          <!-- legs: adjusted so they touch the ground and look straight -->
+          <g id="legs">
+            <!-- left leg -->
+            <path d="M390 560 L420 320 L438 320 L408 560 Z" fill="var(--leg)" opacity="0.95"/>
+            <!-- right leg -->
+            <path d="M510 560 L480 320 L462 320 L492 560 Z" fill="var(--leg)" opacity="0.95"/>
+            <!-- foot plates to anchor legs to ground -->
+            <rect x="376" y="552" width="70" height="12" rx="4" fill="#2a1b14" opacity="0.95"/>
+            <rect x="454" y="552" width="70" height="12" rx="4" fill="#2a1b14" opacity="0.95"/>
+            <!-- cross braces (slightly lower) -->
+            <rect x="410" y="420" width="80" height="10" rx="5" fill="#1e1a17" transform="rotate(-10 450 425)"/>
+            <rect x="410" y="440" width="80" height="10" rx="5" fill="#1e1a17" transform="rotate(10 450 445)"/>
+          </g>
+
+          <!-- wheel group (we will rotate this group). center Y moved down -->
+          <g id="wheelGroup" transform="translate(450 360)">
+            <!-- lights around rim (generated in JS) -->
+            <g id="lights"></g>
+
+            <!-- outer rim -->
+            <circle cx="0" cy="0" r="180" fill="none" stroke="#0d4a6f" stroke-width="14" />
+            <!-- inner rim -->
+            <circle cx="0" cy="0" r="140" fill="none" stroke="#13364a" stroke-width="6" />
+
+            <!-- spokes & cabins generated in JS for cleaner code; placeholder here -->
+            <g id="spokes"></g>
+
+            <!-- hub -->
+            <circle cx="0" cy="0" r="20" fill="#0f2b3a" />
+            <circle cx="0" cy="0" r="10" fill="#1b4b68" />
+          </g>
+
+          <!-- pivot cover to hide center join -->
+          <circle id="pivotCover" cx="450" cy="360" r="22" fill="#071a28"/>
+        </svg>
       </div>
 
-      <div class="cark-kapsayici">
-        <div class="cark" id="cark" aria-label="Edebiyat çarkı">
-          <!-- Seçimi gösteren işaretçi -->
-          <div class="isaretci" aria-hidden="true"></div>
-          <!-- Merkez göbek -->
-          <div class="cark-merkez" aria-hidden="true"></div>
-          <!-- Kabinler JS ile eklenecek -->
+      <div class="controls">
+        <div style="display:flex;gap:10px;align-items:center">
+          <button id="spinBtn" class="spin-btn" aria-pressed="false">Basılı Tut → Dön</button>
         </div>
-      </div>
-
-      <!-- Kontrol Alanı -->
-      <div class="kontroller">
-        <div class="satir">
-          <button id="cevirButon" aria-pressed="false" aria-label="Basılı tutarak çevir">
-            Basılı Tut → Döndür
-          </button>
-          <span id="durumYazi" class="ikaz">Hazır</span>
+        <div class="hint">Mobil: butona basılı tutun veya üzerine dokunun. Bıraktığınızda seçtiğiniz süre içinde duracak şekilde yavaşlar.</div>
+        <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+          <div style="font-size:13px;color:#cfe8ff"><strong>Hız:</strong> <span id="speedLabel">0.00</span> rad/s</div>
+          <div style="font-size:13px;color:#cfe8ff"><strong>Durma:</strong> <span id="stopTarget">3.5</span>s</div>
         </div>
+        <label style="font-size:13px;color:#cfe8ff">Durma süresi ayarla: <input id="stopRange" type="range" min="2" max="5" step="0.1" value="3.5" style="width:100%"></label>
 
-        <div class="satir">
-          <label for="yavaslama" title="Bıraktıktan sonra kaç saniyede dursun?">
-            Yavaşlama Süresi: <strong><span id="yavaslamaDeger">3</span>s</strong>
-          </label>
-          <input id="yavaslama" type="range" min="1" max="6" step="0.5" value="3" />
+        <div class="result-container">
+          <h3 class="result-title">Seçilen Eser</h3>
+          <div class="result-content">
+            <p class="result-text">Çarkı çevirip durduğunda seçilen eser burada gözükecek.</p>
+            <div class="result-card hidden" id="resultCard"></div>
+          </div>
         </div>
-
-        <div class="satir">
-          <input id="jsonInput" type="file" accept="application/json" aria-label="JSON dosyası yükle" />
-          <button id="ornekIndirButon" class="buton" type="button">Örnek JSON indir</button>
+        <div class="json-upload">
+          <label for="jsonFile">Kartları JSON Dosyasından Yükle (isteğe bağlı):</label>
+          <input type="file" id="jsonFile" accept="application/json">
+          <div style="margin-top:8px"><button id="loadJsonBtn">YÜKLE</button></div>
+          <div style="font-size:12px;color:#bfe9ff;margin-top:8px">Eğer dosya yüklemezseniz, sunucuya yüklenmiş örnek JSON (varsa) otomatik kullanılır.</div>
         </div>
-        <div id="jsonHata" class="ikaz" role="status" aria-live="polite"></div>
-      </div>
-
-      <div class="alt-bilgi">
-        İpucu: JSON dosyası bir dizi nesneden oluşmalı. Örnek şema:
-        [
-          { "Başlık":"...", "Tür":"Kitap/Şiir/Metin", "Yazar":"...", "Metin":"..." }
-        ]
-      </div>
-    </section>
-
-    <!-- SAĞ: SONUÇ KARTI -->
-    <aside class="sonuc-karti" aria-label="Seçilen Eser">
-      <h2>Seçilen Eser</h2>
-      <div id="sonucIcerik">
-        <p class="bos">Çark durunca, seçilen eser burada görünecek.</p>
-      </div>
-    </aside>
-  </main>
+    </div>
+    </div>
+  </div>
 
   <script>
-    /*
-      ================ GENEL AKIŞ ================
-      - Sayfa yüklenince 12 kabini oluşturur ve daire etrafına dizer.
-      - "Basılı Tut → Döndür" butonuna basınca açısal hız artar (ivme).
-      - Bırakınca seçilen "yavaşlama süresi" içinde hız sıfıra iner.
-      - Çark durduğunda yukarıdaki işaretçinin hizasındaki kabin "seçilmiş" olur.
-      - Seçilen kabin -> eser dizisindeki bir ögeye denk gelir ve sağdaki kart doldurulur.
-      - Kullanıcı JSON dosyası yüklerse "eserler" verisi güncellenir.
-    */
+    // Configuration
+    const NUM_CABINS = 24;
+    const RIM_RADIUS = 180;
+    const CABIN_DIST = RIM_RADIUS;
+    const CABIN_SIZE = 28;
+    const LIGHT_COUNT = NUM_CABINS * 6;
 
-    // ============ SABİTLER ============
-    const KABIN_SAYISI = 12;                  // Toplam kabin
-    const ADIM_ACISI = 360 / KABIN_SAYISI;    // 30 derece
-    const MAKS_HIZ = 540;                     // derece/saniye cinsinden teorik tavan
-    const IVME = 420;                         // derece/saniye^2 (basılı tutarken hız artışı)
-    const RENGELER = [
-      "#ffd86b", "#ff9b6b", "#ff6bb0", "#c26bff",
-      "#6bb3ff", "#6bffdd", "#a4ff6b", "#ffe36b",
-      "#ff886b", "#ff6bdf", "#8f6bff", "#6be2ff"
+    // Physics
+    let angle = 0; // radians
+    let angVel = 0; // radians / sec
+    let pressing = false;
+
+    const maxAngVel = 6.0;
+    const accelWhilePress = 4.0;
+    const stopTargetInput = document.getElementById('stopRange');
+
+    // refs
+    const svg = document.getElementById('svgWheel');
+    const wheelGroup = document.getElementById('wheelGroup');
+    const spokesGroup = document.getElementById('spokes');
+    const lightsGroup = document.getElementById('lights');
+    const starsGroup = document.getElementById('stars');
+    const spinBtn = document.getElementById('spinBtn');
+    const speedLabel = document.getElementById('speedLabel');
+    const stopTargetLabel = document.getElementById('stopTarget');
+
+    // default literaryWorks (fallback)
+    let literaryWorks = [
+      { "id":"1","Başlık": "Alice Harikalar Diyarında", "Tür": "Kitap", "Yazar": "Lewis Carroll", "Metin": "Alice, bir tavşan deliğinden düşerek fantastik bir dünyaya ulaşır." },
+      { "id":"2","Başlık": "Martılar", "Tür": "Şiir", "Yazar": "Cahit Sıtkı Tarancı", "Metin": "Martılara özlemle bakış..." },
+      { "id":"3","Başlık": "İnce Memed", "Tür": "Edebi Metin", "Yazar": "Yaşar Kemal", "Metin": "Her insan öldürür gene de sevdiğini\nBu böyle bilinsin herkes tarafından,\nKiminin ters bakışından gelir ölüm,\nKiminin iltifatından,\nKorkağın öpücüğünden,\nCesurun kılıcından!\n\nKimisi aşkını gençlikte öldürür,\nYaşını başını almışken kimi;\nBiri Şehvet'in elleriyle boğazlar,\nBirinin altındır elleri,\nYumuşak kalpli bıçak kullanır\nÇünkü ceset soğur hemen.\n\nKimi pek az sever, kimi derinden,\nBiri müşteridir, diğeri satıcı;\nKimi vardır, gözyaşlarıyla bitirir işi,\nKiminden ne bir ah, ne bir figan:\nÇünkü her insan öldürür sevdiğini,\nGene de ölmez insan." }
     ];
 
-    // ============ DURUM DEĞİŞKENLERİ ============
-    let acisalKonum = 0;          // Çarkın o anki döndürülme açısı (derece)
-    let acisalHiz = 0;            // Çarkın açısal hızı (derece/saniye)
-    let basiliMi = false;         // Buton basılı mı?
-    let durmaModu = false;        // Bırakıldı ve yavaşlama aşamasında mıyız?
-    let yavaslamaSuresi = 3;      // Bırakınca şu kadar saniyede dursun
-    let yavaslamaBaslangicHizi = 0;
-    let yavaslamaBaslangicZamani = 0;
-
-    // Eser verisi (varsayılan). Kullanıcı JSON yükleyince güncellenir.
-    let eserler = [
-      { "Başlık": "Örnek Eser 1", "Tür": "Kitap", "Yazar": "Anonim", "Metin": "Bu bir örnek açıklamadır." },
-      { "Başlık": "Örnek Eser 2", "Tür": "Şiir",  "Yazar": "Anonim", "Metin": "Şiirsel bir açıklama." },
-      { "Başlık": "Örnek Eser 3", "Tür": "Metin", "Yazar": "Anonim", "Metin": "Kısa bir tanım." },
-      { "Başlık": "Örnek Eser 4", "Tür": "Kitap", "Yazar": "Anonim", "Metin": "Başka bir örnek eser." },
-      { "Başlık": "Örnek Eser 5", "Tür": "Şiir",  "Yazar": "Anonim", "Metin": "Dizeler..." },
-      { "Başlık": "Örnek Eser 6", "Tür": "Metin", "Yazar": "Anonim", "Metin": "Açıklama burada." },
-    ];
-
-    // ============ ELEMANLAR ============
-    const carkEl = document.getElementById('cark');
-    const cevirButon = document.getElementById('cevirButon');
-    const durumYazi = document.getElementById('durumYazi');
-    const yavaslamaGirdi = document.getElementById('yavaslama');
-    const yavaslamaDeger = document.getElementById('yavaslamaDeger');
-    const jsonInput = document.getElementById('jsonInput');
-    const jsonHata = document.getElementById('jsonHata');
-    const sonucIcerik = document.getElementById('sonucIcerik');
-    const ornekIndirButon = document.getElementById('ornekIndirButon');
-
-    // ============ KABİNLERİ OLUŞTUR ============
-    function kabinleriOlustur(){
-      // Önce varsa eski kabinleri sil
-      [...carkEl.querySelectorAll('.kabin')].forEach(n => n.remove());
-
-      for(let i=0; i<KABIN_SAYISI; i++){
-        const k = document.createElement('div');
-        k.className = 'kabin';
-        k.setAttribute('role', 'img');
-        k.setAttribute('aria-label', `Kabin ${i+1}`);
-        // Renk dağıt
-        k.style.background = RENGELER[i % RENGELER.length];
-        // Kabini daire etrafına yerleştirmek için başlangıç dönüşünü veriyoruz,
-        // asıl çark dönüşü .cark üzerine uygulanacak.
-        const aci = i * ADIM_ACISI; // 0,30,60,...,330
-        k.style.transform = `translate(-50%,-50%) rotate(${aci}deg)`;
-        // İç numara
-        const span = document.createElement('span');
-        span.className = 'numara';
-        span.textContent = i+1;
-        k.appendChild(span);
-        carkEl.appendChild(k);
+    // Try to fetch sample JSON (uploaded to server as sample_cards.json) and use if available.
+    fetch('./sample_cards.json').then(r=>{
+      if(!r.ok) throw new Error('no sample');
+      return r.json();
+    }).then(js=>{
+      if(Array.isArray(js) && js.length>0){
+        literaryWorks = js;
+        console.log('Sample JSON loaded from server,', js.length, 'items');
       }
-    }
-
-    // ============ SEÇİM HESABI ============
-    function secilenKabinIndex(){
-      // Çark dönüş açısı acisalKonum (derece). Yukarı işaretçide olan kabini bulmak için:
-      // Yakın olan açıyı bulmak: round((360 - acisalKonum) / 30) mod 12
-      const norm = ((360 - (acisalKonum % 360)) + 360) % 360;
-      const idx = Math.round(norm / ADIM_ACISI) % KABIN_SAYISI;
-      return idx;
-    }
-
-    function secimVurgulaVeGoster(){
-      const tumKabinler = [...carkEl.querySelectorAll('.kabin')];
-      tumKabinler.forEach(k => k.classList.remove('secili'));
-      const idx = secilenKabinIndex();
-      if(tumKabinler[idx]) tumKabinler[idx].classList.add('secili');
-
-      // Eser eşleştirme: kabin indexine göre bir eseri seç
-      const eser = eserler.length ? eserler[idx % eserler.length] : null;
-      if(eser){
-        sonucIcerik.innerHTML = `
-          <div>
-            <span class="etiket">${eser.Tür || 'Tür'}</span>
-            <span class="etiket">${eser.Yazar || 'Yazar'}</span>
-          </div>
-          <h3>${eser.Başlık || 'Başlık yok'}</h3>
-          <p>${eser.Metin || 'Açıklama bulunamadı.'}</p>
-        `;
-      }else{
-        sonucIcerik.innerHTML = `<p class="bos">Eser verisi bulunamadı.</p>`;
-      }
-    }
-
-    // ============ ANİMASYON DÖNGÜSÜ ============
-    let oncekiZaman = performance.now();
-    function dongu(simdi = performance.now()){
-      const dt = Math.min(0.05, (simdi - oncekiZaman)/1000); // saniye cinsinden, 50ms tavan
-      oncekiZaman = simdi;
-
-      if(basiliMi){
-        // Basılı tutarken hız, IVME kadar artar (MAKS_HIZ tavanı var)
-        acisalHiz = Math.min(MAKS_HIZ, acisalHiz + IVME * dt);
-      }else if(durmaModu){
-        // Bıraktıktan sonra ease-out ile sıfıra düşür
-        const gecen = (simdi - yavaslamaBaslangicZamani) / 1000;
-        const t = Math.max(0, Math.min(1, gecen / yavaslamaSuresi)); // 0..1
-        const easeOutCubic = (x)=> 1 - Math.pow(1 - x, 3);
-        const carpan = 1 - easeOutCubic(t);
-        acisalHiz = yavaslamaBaslangicHizi * carpan;
-        if(t >= 1){
-          acisalHiz = 0;
-          durmaModu = false;
-          durumYazi.textContent = 'Durdu';
-          secimVurgulaVeGoster();
-        }
-      }else{
-        // Ne basılı ne durma modunda: sürtünme gibi hafif azalım (gerekirse)
-        acisalHiz *= 0.995;
-        if(Math.abs(acisalHiz) < 0.02) acisalHiz = 0;
-      }
-
-      // Açıyı güncelle ve uygula
-      acisalKonum = (acisalKonum + acisalHiz * dt) % 360;
-      carkEl.style.transform = `rotate(${acisalKonum}deg)`;
-
-      requestAnimationFrame(dongu);
-    }
-
-    // ============ ETKİLEŞİM ============
-    function basmayaBasla(e){
-      e.preventDefault();
-      basiliMi = true;
-      durmaModu = false;
-      cevirButon.setAttribute('aria-pressed', 'true');
-      durumYazi.textContent = 'Hızlanıyor...';
-    }
-    function birak(e){
-      if(!basiliMi) return;
-      basiliMi = false;
-      cevirButon.setAttribute('aria-pressed', 'false');
-      // Şimdi yavaşlamaya geç
-      durmaModu = true;
-      yavaslamaBaslangicHizi = Math.max(60, acisalHiz); // çok düşükse bile 60'dan başlat ki hissedilsin
-      yavaslamaBaslangicZamani = performance.now();
-      durumYazi.textContent = 'Yavaşlıyor...';
-    }
-
-    // Fare
-    cevirButon.addEventListener('mousedown', basmayaBasla);
-    document.addEventListener('mouseup', birak);
-    cevirButon.addEventListener('mouseleave', (e)=>{ if(basiliMi) birak(e); });
-
-    // Dokunmatik
-    cevirButon.addEventListener('touchstart', basmayaBasla, {passive: true});
-    cevirButon.addEventListener('touchend', birak);
-    cevirButon.addEventListener('touchcancel', birak);
-
-    // Yavaşlama süresi kontrolü
-    yavaslamaGirdi.addEventListener('input', ()=>{
-      yavaslamaSuresi = Number(yavaslamaGirdi.value);
-      yavaslamaDeger.textContent = yavaslamaSuresi;
+      // After potential load, create the cabins
+      createCabinsAndLights();
+    }).catch(err=>{
+      console.log('No sample JSON loaded from server - using defaults.');
+      createCabinsAndLights();
     });
 
-    // JSON yükleme (dosya)
-    jsonInput.addEventListener('change', async ()=>{
-      jsonHata.textContent = '';
-      const f = jsonInput.files?.[0];
-      if(!f) return;
-      try{
-        const text = await f.text();
-        const data = JSON.parse(text);
-        if(!Array.isArray(data)) throw new Error('JSON bir dizi olmalı.');
-        // Basit doğrulama
-        const temiz = data.map((x,i)=>({
-          "Başlık": x["Başlık"] ?? `Eser ${i+1}`,
-          "Tür":    x["Tür"]    ?? "Metin",
-          "Yazar":  x["Yazar"]  ?? "Bilinmiyor",
-          "Metin":  x["Metin"]  ?? ""
-        }));
-        if(temiz.length === 0) throw new Error('JSON dizisi boş.');
-        eserler = temiz;
-        jsonHata.textContent = `✅ ${eserler.length} eser yüklendi.`;
-      }catch(err){
-        jsonHata.textContent = '⚠️ JSON okunamadı: ' + (err?.message || err);
+    // helper
+    function svgn(tag){ return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+    // create stars
+    (function createStars(){
+      const W = 900, H = 520;
+      for(let i=0;i<120;i++){
+        const x = Math.random()*W;
+        const y = Math.random()*H*0.7;
+        const r = Math.random()*1.6 + 0.3;
+        const c = svgn('circle');
+        c.setAttribute('cx', x);
+        c.setAttribute('cy', y);
+        c.setAttribute('r', r);
+        c.setAttribute('fill', 'white');
+        c.setAttribute('opacity', (Math.random()*0.7+0.2).toFixed(2));
+        starsGroup.appendChild(c);
       }
-    });
+    })();
 
-    // Örnek JSON indir butonu (kullanıcıya yerel bir örnek ver)
-    ornekIndirButon.addEventListener('click', ()=>{
-      const ornek = [
-        { "Başlık": "Küçük Prens", "Tür": "Kitap", "Yazar": "Antoine de Saint-Exupéry", "Metin": "Dostluk ve hayal gücü üzerine modern bir klasik." },
-        { "Başlık": "Sessiz Gemi", "Tür": "Şiir", "Yazar": "Yahya Kemal Beyatlı", "Metin": "Ölüm ve ayrılık temalı unutulmaz dizeler." },
-        { "Başlık": "Sait Faik Öyküsü", "Tür": "Metin", "Yazar": "Sait Faik Abasıyanık", "Metin": "Gözlem gücü yüksek, insanı anlatan yalın bir dil." }
-      ];
-      const blob = new Blob([JSON.stringify(ornek, null, 2)], {type: 'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'ornek_eserler.json';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url), 1000);
-    });
+    
+    // 0-bazlı alttaki kabin indeksi (her NUM_CABINS için doğru çalışır)
+    function getBottomCabinIndex(currentAngleRad, cabinCount){
+      const twoPi = 2*Math.PI;
+      // Açıyı [0, 2π) aralığına normalize et
+      let a = currentAngleRad % twoPi;
+      if (a < 0) a += twoPi;
 
-    // ============ BAŞLAT ============
-    kabinleriOlustur();
-    requestAnimationFrame(dongu);
+      const step = twoPi / cabinCount;
+      // Geometri: i ≈ (π - a) / step  0-bazlı, en yakın kabini bulmak için yuvarla
+      let idx = Math.round((Math.PI - a) / step) % cabinCount;
+      if (idx < 0) idx += cabinCount;
+      return idx; // 0..cabinCount-1
+    }
 
-    // Not: Pencere boyutu değişse de bu sürümde kabin yerleşimi transform ile yapıldığı için
-    // özel bir yeniden hesaplama gerekmez. (Çap varsayılan olarak vmin tabanlı olduğu için responsive.)
+    // createCabinsAndLights - now a proper function (callable)
+    function createCabinsAndLights(){
+      while(spokesGroup.firstChild) spokesGroup.removeChild(spokesGroup.firstChild);
+      while(lightsGroup.firstChild) lightsGroup.removeChild(lightsGroup.firstChild);
+
+      for(let i=0;i<NUM_CABINS;i++){
+        // start numbering at top (12 o'clock) and go clockwise
+        const theta = (i/NUM_CABINS)*Math.PI*2 - Math.PI/2;
+        const line = svgn('line');
+        line.setAttribute('x1',0); line.setAttribute('y1',0);
+        line.setAttribute('x2', Math.cos(theta)*RIM_RADIUS);
+        line.setAttribute('y2', Math.sin(theta)*RIM_RADIUS);
+        line.setAttribute('stroke','#1b495c'); line.setAttribute('stroke-width','3');
+        spokesGroup.appendChild(line);
+
+        const cabinG = svgn('g');
+        cabinG.setAttribute('class','cabinG'); cabinG.setAttribute('data-index', i);
+        const cx = Math.cos(theta)*CABIN_DIST; const cy = Math.sin(theta)*CABIN_DIST;
+        cabinG.setAttribute('transform', `translate(${cx} ${cy})`);
+
+        const arm = svgn('line'); arm.setAttribute('x1',0); arm.setAttribute('y1',0); arm.setAttribute('x2',0); arm.setAttribute('y2',18);
+        arm.setAttribute('stroke','#0b1b22'); arm.setAttribute('stroke-width','2'); cabinG.appendChild(arm);
+
+        const rect = svgn('rect'); rect.setAttribute('x', -CABIN_SIZE/2); rect.setAttribute('y', 18);
+        rect.setAttribute('width', CABIN_SIZE); rect.setAttribute('height', CABIN_SIZE*0.8); rect.setAttribute('rx',6);
+        rect.setAttribute('class','cabin'); rect.setAttribute('fill', getColorForIndex(i)); rect.setAttribute('stroke','#9b6a00'); rect.setAttribute('stroke-width','1.5');
+        cabinG.appendChild(rect);
+
+        const win = svgn('rect'); win.setAttribute('x', -6); win.setAttribute('y', 22); win.setAttribute('width', 12); win.setAttribute('height', 12); win.setAttribute('rx',2); win.setAttribute('fill','#fff'); win.setAttribute('opacity','0.95'); cabinG.appendChild(win);
+
+        // numbering: top == 12
+        //const cabinNumber = i === 0 ? NUM_CABINS : i;
+        const cabinNumber = i + 1;
+        const num = svgn('text'); num.setAttribute('class','cabinNumberNight'); num.setAttribute('x','0');
+        const cabinCenterY = 18 + (CABIN_SIZE*0.8)/2 + 4; num.setAttribute('y', cabinCenterY); num.setAttribute('text-anchor','middle'); num.textContent = String(cabinNumber);
+        cabinG.appendChild(num);
+
+        spokesGroup.appendChild(cabinG);
+      }
+
+      // lights
+      for(let i=0;i<LIGHT_COUNT;i++){
+        const theta = (i/LIGHT_COUNT)*Math.PI*2 - Math.PI/2;
+        const lx = Math.cos(theta)*(RIM_RADIUS+10);
+        const ly = Math.sin(theta)*(RIM_RADIUS+10);
+        const light = svgn('circle'); light.setAttribute('cx', lx); light.setAttribute('cy', ly); light.setAttribute('r',5);
+        light.setAttribute('class','rimLight'); light.dataset.index = i; lightsGroup.appendChild(light);
+      }
+    }
+
+    function getColorForIndex(i){
+      const palette = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFBE0B", "#FB5607", "#8338EC", "#3A86FF", "#06D6A0", "#FF9E00", "#9B5DE5", "#00BBF9", "#F15BB5"];
+      return palette[i % palette.length];
+    }
+
+    // JSON upload handler (user file)
+    document.getElementById('loadJsonBtn').addEventListener('click', loadJsonData);
+    function loadJsonData(){
+      const fileInput = document.getElementById('jsonFile'); const file = fileInput.files[0];
+      if(!file){ alert('Lütfen bir JSON dosyası seçin!'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e){
+        try{
+          const jsonData = JSON.parse(e.target.result);
+          if(Array.isArray(jsonData) && jsonData.length>0){ literaryWorks = jsonData; alert(`${literaryWorks.length} kart başarıyla yüklendi!`); }
+          else alert('JSON doğru formatta bir dizi içermiyor.');
+          // no writing anywhere — just use in memory
+        }catch(err){ alert('JSON ayrıştırma hatası: '+err.message); }
+        // update visuals even if number of cabins stays 12
+        createCabinsAndLights();
+      };
+      reader.readAsText(file);
+    }
+
+    // animation loop
+    let lastTs = null; let releaseDecel = 0;
+
+    function startPress(e){ e.preventDefault(); pressing = true; spinBtn.textContent = 'BASILI TUTULUYOR...'; spinBtn.setAttribute('aria-pressed','true'); }
+    function endPress(e){ if(e) e.preventDefault(); if(!pressing) return; pressing = false; const stopTime = parseFloat(stopTargetInput.value) || 3.5; releaseDecel = -angVel / stopTime; spinBtn.textContent = 'DURDURULUYOR...'; spinBtn.setAttribute('aria-pressed','false'); setTimeout(showSelectedResult, stopTime*1000); }
+
+    spinBtn.addEventListener('mousedown', startPress); spinBtn.addEventListener('touchstart', startPress, {passive:false});
+    spinBtn.addEventListener('mouseup', endPress); spinBtn.addEventListener('touchend', endPress); spinBtn.addEventListener('mouseleave', endPress);
+
+    function showSelectedResult(){
+      // Alttaki kabinin 0-bazlı indeksini bul
+      const cabinIndex = getBottomCabinIndex(angle, NUM_CABINS);
+
+      // Eser dizisine indeksle, taşma varsa mod al
+      const workIndex = cabinIndex % literaryWorks.length;
+      const work = literaryWorks[workIndex] || { Başlık:'Başlıksız', Tür:'—', Yazar:'—', Metin:'—' };
+
+      const resultCard = document.getElementById('resultCard');
+      resultCard.innerHTML = `
+        <h3>${escapeHtml(work['Başlık']||work['title']||'Başlıksız')}</h3>
+        <p><span class="type">${escapeHtml(work['Tür']||work['type']||'Tür yok')}</span></p>
+        <p><strong>Yazar:</strong> ${escapeHtml(work['Yazar']||work['author']||'Yok')}</p>
+        <p class="text">${escapeHtml(work['Metin']||work['text']||'İçerik yok')}</p>
+      `;
+      resultCard.classList.remove('hidden');
+      document.querySelector('.result-text').classList.add('hidden');
+      spinBtn.textContent = 'TEKRAR ÇEVİR!';
+    }
+
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function update(ts){ if(!lastTs) lastTs = ts; const dt = (ts-lastTs)/1000; lastTs = ts;
+      if(pressing){ angVel += accelWhilePress * dt; if(angVel>maxAngVel) angVel = maxAngVel; }
+      else { if(angVel>0){ angVel += releaseDecel * dt; if(angVel < 0.00005) angVel = 0; } }
+      angle += angVel * dt;
+      if(angVel === 0){ const snapStep = (2*Math.PI)/NUM_CABINS; angle = Math.round(angle / snapStep) * snapStep; }
+      const deg = angle * 180/Math.PI; wheelGroup.setAttribute('transform', `translate(450 360) rotate(${deg})`);
+
+      // cabins upright
+      const cabinGroups = document.querySelectorAll('.cabinG'); cabinGroups.forEach(cg=>{
+        const i = +cg.getAttribute('data-index'); const theta = (i/NUM_CABINS)*Math.PI*2 - Math.PI/2; const cx = Math.cos(theta)*CABIN_DIST; const cy = Math.sin(theta)*CABIN_DIST; cg.setAttribute('transform', `translate(${cx} ${cy}) rotate(${-deg})`);
+      });
+
+      // lights rainbow
+      const lights = document.querySelectorAll('.rimLight'); lights.forEach(lt=>{ const i = +lt.dataset.index; const hueBase = (i / LIGHT_COUNT) * 360; const hueShift = (angle * 180/Math.PI) * 0.4; const hue = (hueBase + hueShift) % 360; const pulse = 0.7 + 0.3*Math.sin(angle*3 + i*0.5); lt.setAttribute('fill', `hsl(${hue},100%,${50*pulse}%)`); });
+
+      speedLabel.textContent = angVel.toFixed(2);
+      requestAnimationFrame(update);
+    }
+
+    // start loop
+    requestAnimationFrame(update);
+
+    // make stop range label reactive
+    stopTargetInput.addEventListener('input', ()=>{ stopTargetLabel.textContent = stopTargetInput.value; });
+    window.addEventListener('blur', ()=>{ if(pressing) endPress(); });
+
   </script>
 </body>
 </html>
