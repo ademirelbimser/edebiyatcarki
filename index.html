@@ -285,7 +285,7 @@
       else { if(angVel>0){ angVel += releaseDecel * dt; if(angVel < 0.00005) angVel = 0; } }
       angle += angVel * dt;
       if(angVel === 0){ const snapStep = (2*Math.PI)/NUM_CABINS; angle = Math.round(angle / snapStep) * snapStep; }
-      const deg = angle * 180/Math.PI; wheelGroup.setAttribute('transform', `translate(450 360) rotate(${deg})`);
+      const deg = angle * 180/Math.PI; wheelGroup.setAttribute('transform', `translate(450 330) rotate(${deg})`);
 
       // cabins upright
       const cabinGroups = document.querySelectorAll('.cabinG'); cabinGroups.forEach(cg=>{
