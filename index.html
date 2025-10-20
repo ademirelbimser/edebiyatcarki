@@ -282,6 +282,7 @@
 
     // JSON upload handler (user file)
     document.getElementById('loadJsonBtn').addEventListener('click', loadJsonData);
+
     function loadJsonData(){
       const fileInput = document.getElementById('jsonFile'); const file = fileInput.files[0];
       if(!file){ alert('Lütfen bir JSON dosyası seçin!'); return; }
@@ -289,7 +290,7 @@
       reader.onload = function(e){
         try{
           const jsonData = JSON.parse(e.target.result);
-          if(Array.isArray(jsonData) && jsonData.length>0){ literaryWorks = jsonData; NUM_CABINS = literaryWorks.length; createCabinsAndLights(); (`${literaryWorks.length} kart başarıyla yüklendi!`); }
+          if(Array.isArray(jsonData) && jsonData.length>0){ literaryWorks = jsonData; NUM_CABINS = literaryWorks.length; createCabinsAndLights(); alert(`${literaryWorks.length} kart başarıyla yüklendi!`); }
           else alert('JSON doğru formatta bir dizi içermiyor.');
           // no writing anywhere — just use in memory
         }catch(err){ alert('JSON ayrıştırma hatası: '+err.message); }
