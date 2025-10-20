@@ -141,7 +141,7 @@
 
   <script>
     // Configuration
-    const NUM_CABINS = 24;
+    let NUM_CABINS = 12;
     const RIM_RADIUS = 180;
     const CABIN_DIST = RIM_RADIUS;
     const CABIN_SIZE = 28;
@@ -180,6 +180,7 @@
     }).then(js=>{
       if(Array.isArray(js) && js.length>0){
         literaryWorks = js;
+        NUM_CABINS = literaryWorks.length;
         console.log('Sample JSON loaded from server,', js.length, 'items');
       }
       // After potential load, create the cabins
