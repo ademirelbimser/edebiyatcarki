@@ -33,7 +33,7 @@
             <rect x="410" y="420" width="80" height="10" rx="5" fill="#1e1a17" transform="rotate(-10 450 425)"/>
             <rect x="410" y="440" width="80" height="10" rx="5" fill="#1e1a17" transform="rotate(10 450 445)"/>
           </g>
-          <g id="wheelGroup" transform="translate(450 360)">
+          <g id="wheelGroup" transform="translate(450 300)">
             <g id="lights"></g>
             <circle cx="0" cy="0" r="180" fill="none" stroke="#0d4a6f" stroke-width="14" />
             <circle cx="0" cy="0" r="140" fill="none" stroke="#13364a" stroke-width="6" />
@@ -41,7 +41,7 @@
             <circle cx="0" cy="0" r="20" fill="#0f2b3a" />
             <circle cx="0" cy="0" r="10" fill="#1b4b68" />
           </g>
-          <circle id="pivotCover" cx="450" cy="360" r="22" fill="#071a28"/>
+          <circle id="pivotCover" cx="450" cy="300" r="22" fill="#071a28"/>
         </svg>
       </div>
 
@@ -285,7 +285,7 @@
       else { if(angVel>0){ angVel += releaseDecel * dt; if(angVel < 0.00005) angVel = 0; } }
       angle += angVel * dt;
       if(angVel === 0){ const snapStep = (2*Math.PI)/NUM_CABINS; angle = Math.round(angle / snapStep) * snapStep; }
-      const deg = angle * 180/Math.PI; wheelGroup.setAttribute('transform', `translate(450 360) rotate(${deg})`);
+      const deg = angle * 180/Math.PI; wheelGroup.setAttribute('transform', `translate(450 300) rotate(${deg})`);
 
       // cabins upright
       const cabinGroups = document.querySelectorAll('.cabinG'); cabinGroups.forEach(cg=>{
