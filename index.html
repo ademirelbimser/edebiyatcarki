@@ -110,7 +110,15 @@
           <circle id="pivotCover" cx="450" cy="360" r="22" fill="#071a28"/>
         </svg>
       </div>
-
+      <div class="result-container">
+        <h3 class="result-title">Seçilen Eser</h3>
+        <div class="result-content">
+          <p class="result-text">Çarkı çevirip durduğunda seçilen eser burada gözükecek.</p>
+          <div class="result-card hidden" id="resultCard"></div>
+        </div>
+      </div>
+    </div>
+    <div>
       <div class="controls">
         <div style="display:flex;gap:10px;align-items:center">
           <button id="spinBtn" class="spin-btn" aria-pressed="false">Basılı Tut → Dön</button>
@@ -122,20 +130,13 @@
         </div>
         <label style="font-size:13px;color:#cfe8ff">Durma süresi ayarla: <input id="stopRange" type="range" min="2" max="5" step="0.1" value="3.5" style="width:100%"></label>
 
-        <div class="result-container">
-          <h3 class="result-title">Seçilen Eser</h3>
-          <div class="result-content">
-            <p class="result-text">Çarkı çevirip durduğunda seçilen eser burada gözükecek.</p>
-            <div class="result-card hidden" id="resultCard"></div>
-          </div>
-        </div>
         <div class="json-upload">
           <label for="jsonFile">Kartları JSON Dosyasından Yükle (isteğe bağlı):</label>
           <input type="file" id="jsonFile" accept="application/json">
           <div style="margin-top:8px"><button id="loadJsonBtn">YÜKLE</button></div>
           <div style="font-size:12px;color:#bfe9ff;margin-top:8px">Eğer dosya yüklemezseniz, sunucuya yüklenmiş örnek JSON (varsa) otomatik kullanılır.</div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 
