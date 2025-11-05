@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "title": "Alice Harikalar Diyarında",
+    "type": "Kitap",
+    "author": "Lewis Carroll",
+    "text": "Alice, bir tavşan deliğinden düşerek fantastik bir dünyaya ulaşır."
+  },
+  {
+    "id": "2",
+    "title": "Martılar",
+    "type": "Şiir",
+    "author": "Cahit Sıtkı Tarancı",
+    "text": "Martılara özlemle bakış..."
+  },
+  {
+    "id": "3",
+    "title": "İnce Memed",
+    "type": "Edebi Metin",
+    "author": "Yaşar Kemal",
+    "text": "Her insan öldürür gene de sevdiğini\nBu böyle bilinsin herkes tarafından,\nKiminin ters bakışından gelir ölüm,\nKiminin iltifatından,\nKorkağın öpücüğünden,\nCesurun kılıcından!\n\nKimisi aşkını gençlikte öldürür,\nYaşını başını almışken kimi;\nBiri Şehvet'in elleriyle boğazlar,\nBirinin altındır elleri,\nYumuşak kalpli bıçak kullanır\nÇünkü ceset soğur hemen.\n\nKimi pek az sever, kimi derinden,\nBiri müşteridir, diğeri satıcı;\nKimi vardır, gözyaşlarıyla bitirir işi,\nKiminden ne bir ah, ne bir figan:\nÇünkü her insan öldürür sevdiğini,\nGene de ölmez insan."
+  }
+]
