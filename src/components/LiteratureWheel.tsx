@@ -33,8 +33,8 @@ const LiteratureWheel = ({ bucketId }: LiteratureWheelProps) => {
   const [speed, setSpeed] = useState(0);
   const [stopTarget, setStopTarget] = useState(3.5);
 
-  const animationRef = useRef<number>();
-  const lastTsRef = useRef<number>();
+  const animationRef = useRef<number>(0);
+  const lastTsRef = useRef<number>(0);
   const releaseDecelRef = useRef(0);
 
   const stars = useState(() =>
