@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from ‘react’;
 
 interface Bucket {
-id: string;
+      id: string;
 name: string;
 bucketNumber: number;
 works: Work[];
