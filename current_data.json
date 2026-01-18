@@ -1,0 +1,407 @@
+[
+  {
+    "id": "cmkir2piw0000el9jshm9oldu",
+    "name": "Admin",
+    "email": "admin@test.com",
+    "emailVerified": null,
+    "image": null,
+    "password": "$2b$10$jFKke4YCJ5nCq5GCjN6oTuH5Ec.5.Cqhksd.MTRPldLKvrxzKXxEC",
+    "role": "ADMIN",
+    "isActive": false,
+    "createdAt": "2026-01-17T20:18:44.024Z",
+    "updatedAt": "2026-01-18T11:19:10.265Z",
+    "buckets": []
+  },
+  {
+    "id": "cmkis4nra0000el9139840son",
+    "name": "Ahmet Demirel",
+    "email": "ademirel4@hotmail.com",
+    "emailVerified": null,
+    "image": null,
+    "password": "$2b$10$5t1TMoLP2yORwoTs7wK2d.SBAmboPeOHQFL84G7jpR9nfSBhSvKR6",
+    "role": "TEACHER",
+    "isActive": true,
+    "createdAt": "2026-01-17T20:48:14.661Z",
+    "updatedAt": "2026-01-17T20:48:14.661Z",
+    "buckets": [
+      {
+        "id": "73089d58-fe51-42ed-b33b-767e815b9832",
+        "name": "Garip Akımı Şiirleri",
+        "createdBy": "cmkis4nra0000el9139840son",
+        "createdAt": "2026-01-17T21:03:06.786Z",
+        "updatedAt": "2026-01-17T21:03:06.786Z",
+        "cards": [
+          {
+            "id": 1,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Kitabe-i Seng-i Mezar",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Yaşamak şaka mıdır sanki\nBu ne şaşkın adamlar\nAldanıyorlar her gün\nYeni baştan\nBir hoşluk bir mutluluk peşinde\nBir de bakıyorsun çökmüş\nYıkılmış perişan\nKiminin evi bark yandı\nKiminin harman\nKitabe-i Seng-i Mezar'a çıkar\nSonunda her işin hesabı\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 2,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Anlatamıyorum",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Içimde bir şey var bende değil\nDilim döndüğü kadar anlatıyorum\nTam anlatacağım zaman içimde kalıyor\nSıkılıyorum, bunalıyorum\nYa böyle yazıyorum şiir\nYa sus oturuyorum bir köşeye",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 3,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Bedava",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Dünyaya bedavadan gelmişiz\nDünyadan bedavaya gideceğiz\nBu dünya bize bedava\nBir gömlek bir don bedava\nKırmızı yazma bedava\nHastalıklar bedava\nVe bedava gam tasa\nDünyaya bedavadan gelmişiz\nDünyadan bedavaya gideceğiz",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 4,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Günün Birinde",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Günün birinde nasıl öldüğümü\nSen mi soracaksın bana\nBen mi sana\nYeşim turuncu mu\nYeşim yeşil mi\nBir kapı açılacak\nGireceksin\nEvet bu kadar",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 5,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Rahatı Kaçan Ağaç",
+            "type": "Şiir",
+            "author": "Melih Cevdet Anday",
+            "content": "Çobanın biri eğlensin diye oymuş kabuğuna\nBir göz yanar gibi durur gövdede\nGörmek ister ufku\nYukarıya yetişemez bütün dalları\nKimseler dinleyemez\nDinleyemez uzun gök türküsünü\nYaprağında çiçeğinde kırlangıç gölgeleri\nKökünde karıncalar\nBir göz yanar gibi durur gövdede\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 6,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Teknenin Ölümü",
+            "type": "Şiir",
+            "author": "Melih Cevdet Anday",
+            "content": "Ne tuhaf şey\nGider gitmez sahilden\nBir tekne oluvermişim\nArtık ne dışıma uygun bir dünya\nNe içime benzer bir ufuk\nDalgalar çok sert\nRüzgarlar olmasa\nHerhangi bir tahtadan farkım yok\nNe tuhaf şey\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 7,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Yaşamak",
+            "type": "Şiir",
+            "author": "Oktay Rifat Horozcu",
+            "content": "Ben yaşamayı deniz kenarlarında severim\nBen yaşamayı bağlarda bahçelerde severim\nBen yaşamayı türkü dinleyerek severim\nBen yaşamayı ayran :) içerek severim\nBen yaşamayı yazı yazarak severim\nBen yaşamayı pencereden sokağa bakarak severim",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 8,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Sevgi Duvarı",
+            "type": "Şiir",
+            "author": "Oktay Rifat Horozcu",
+            "content": "Karşımdaki duvar\nBenimle senin aranda\nİki yanı sıvalı\nNe senin tarafından delinir\nNe benim tarafımdan\nKarşımdaki duvar\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 9,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "İstanbul Türküsü",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Burası İstanbul\nGözlerimin içi\nBüyük küçük her taşı canımın içi\nBurda doğdum burda öldüm vallahi\nBurda öldüm doğdum her taşı canımın içi\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 10,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Ne Kadar Güzel",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Denizi göreceksin\nNe kadar güzel\nKabahatini bulacaksın\nNe kadar güzel\nÖleceksin\nNe kadar güzel\nYaşayacaksın\nNe kadar güzel\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 11,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Kolları Bağlı",
+            "type": "Şiir",
+            "author": "Melih Cevdet Anday",
+            "content": "Kolları bağlı gelecektir\nOnu bilen bilir\nKol giremez hayatın içine\nOna da kimse dokunamaz\nGörmek için yalnız görmek için\nAçıktır gözleri\nKolları bağlı gelecektir\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          },
+          {
+            "id": 12,
+            "bucketId": "73089d58-fe51-42ed-b33b-767e815b9832",
+            "title": "Ellerin Üşür",
+            "type": "Şiir",
+            "author": "Oktay Rifat Horozcu",
+            "content": "Ellerin üşür yazmasız\nSokağa çıkılamaz yaşamasız\nBilirim inanmazsın\nKaçmazsın\nKaçmasan da bulunur\nGözlerin ıslanır gözyaşısız\n",
+            "createdAt": "2026-01-17T21:03:06.798Z",
+            "updatedAt": "2026-01-17T21:03:06.798Z"
+          }
+        ]
+      },
+      {
+        "id": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+        "name": "Ölümsüz Eserler",
+        "createdBy": "cmkis4nra0000el9139840son",
+        "createdAt": "2026-01-17T20:39:06.791Z",
+        "updatedAt": "2026-01-17T21:15:06.613Z",
+        "cards": [
+          {
+            "id": 1,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "İlim İlim Bilmektir",
+            "type": "Şiir",
+            "author": "Yunus Emre",
+            "content": "İlim ilim bilmektir,\nİlim kendin bilmektir,\nSen kendini bilmezsin,\nYa nice okumaktır?\n\nOkumaktan mana ne,\nKişi Hakk’ı bilmektir,\nÇün okudun bilmezsin,\nHa bir kuru emektir.",
+            "createdAt": "2026-01-17T20:39:06.794Z",
+            "updatedAt": "2026-01-17T21:15:06.619Z"
+          },
+          {
+            "id": 2,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "İncecikten Bir Kar Yağar",
+            "type": "Şiir",
+            "author": "Karacaoğlan",
+            "content": "İncecikten bir kar yağar,\nTozar Elif Elif diye;\nDeli gönül abdal olmuş,\nGezer Elif Elif diye.\n\nNice bir dertli dolanır,\nBezer Elif Elif diye.",
+            "createdAt": "2026-01-17T20:39:06.795Z",
+            "updatedAt": "2026-01-17T21:15:06.621Z"
+          },
+          {
+            "id": 3,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Şu Ellerin Taşı",
+            "type": "Şiir",
+            "author": "Pir Sultan Abdal",
+            "content": "Şu ellerin taşı bana değmez,\nİlle dostun gülü yaralar beni;\nGül açılsa bülbül öter eğlenir,\nBülbülün figanı yaralar beni.",
+            "createdAt": "2026-01-17T20:39:06.798Z",
+            "updatedAt": "2026-01-17T21:15:06.623Z"
+          },
+          {
+            "id": 4,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Anlatamıyorum",
+            "type": "Şiir",
+            "author": "Orhan Veli Kanık",
+            "content": "Ağlasam sesimi duyar mısınız,\nMısralarımda;\nDokunabilir misiniz,\nGözyaşlarıma, ellerinizle?\n\nBir yer var, biliyorum;\nHer şeyi söylemek mümkün,\nEpeyce yaklaşmışım, duyuyorum;\nAnlatamıyorum.",
+            "createdAt": "2026-01-17T20:39:06.800Z",
+            "updatedAt": "2026-01-17T21:15:06.625Z"
+          },
+          {
+            "id": 5,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Merdiven",
+            "type": "Şiir",
+            "author": "Ahmed Haşim",
+            "content": "Ağır, ağır çıkacaksın bu merdivenlerden,\nEteklerinde güneş rengi bir yığın yaprak,\nVe bir zaman bakacaksın semâya ağlayarak;\n\nSular sarardı... yüzün perde perde solmakta,\nKızıl havaları seyret ki akşam olmakta.",
+            "createdAt": "2026-01-17T20:39:06.801Z",
+            "updatedAt": "2026-01-17T21:15:06.626Z"
+          },
+          {
+            "id": 6,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Vatan Şarkısı (Seçme Dizeler)",
+            "type": "Şiir",
+            "author": "Namık Kemal",
+            "content": "Vatanın bağrına düşman dayasın hançerini;\nBulunur kurtaracak bahtı kara maderini.",
+            "createdAt": "2026-01-17T20:39:06.803Z",
+            "updatedAt": "2026-01-17T21:15:06.628Z"
+          },
+          {
+            "id": 7,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Terkib-i Bent (Seçme Dizeler)",
+            "type": "Şiir",
+            "author": "Ziya Paşa",
+            "content": "Âyinesi iştir kişinin lâfa bakılmaz;\nŞahsın görünür rütbe-i aklı eserinde.",
+            "createdAt": "2026-01-17T20:39:06.804Z",
+            "updatedAt": "2026-01-17T21:15:06.629Z"
+          },
+          {
+            "id": 8,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Gazel (Hoş Sadâ)",
+            "type": "Şiir",
+            "author": "Bâkî",
+            "content": "Âvâzeyi bu âleme Dâvud gibi sal,\nBâkî kalan bu kubbede bir hoş sadâ imiş.",
+            "createdAt": "2026-01-17T20:39:06.805Z",
+            "updatedAt": "2026-01-17T21:15:06.630Z"
+          },
+          {
+            "id": 9,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Bu Şehr-i İstanbul (Seçme Dizeler)",
+            "type": "Şiir",
+            "author": "Nedim",
+            "content": "Bu şehr-i İstanbul ki bî-misl ü behâdır,\nBir sengine yekpâre Acem mülkü fedâdır.",
+            "createdAt": "2026-01-17T20:39:06.806Z",
+            "updatedAt": "2026-01-17T21:15:06.632Z"
+          },
+          {
+            "id": 10,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Hoşça Bak Zâtına",
+            "type": "Şiir",
+            "author": "Şeyh Gâlib",
+            "content": "Hoşça bak zâtına kim zübde-i âlemsin sen,\nMerdüm-i dîde-i ekvân olan âdemsin sen.",
+            "createdAt": "2026-01-17T20:39:06.808Z",
+            "updatedAt": "2026-01-17T21:15:06.633Z"
+          },
+          {
+            "id": 11,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Ferman Padişahınsa Dağlar Bizimdir",
+            "type": "Şiir",
+            "author": "Dadaloğlu",
+            "content": "Ferman padişahınsa dağlar bizimdir,\nHakkımızda devlet etmiş fermanı;\nFerman padişahınsa dağlar bizimdir.",
+            "createdAt": "2026-01-17T20:39:06.809Z",
+            "updatedAt": "2026-01-17T21:15:06.634Z"
+          },
+          {
+            "id": 12,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "İstiklâl Marşı (1. Kıta)",
+            "type": "Şiir",
+            "author": "Mehmet Âkif Ersoy",
+            "content": "Korkma, sönmez bu şafaklarda yüzen al sancak;\nSönmeden yurdumun üstünde tüten en son ocak.\nO benim milletimin yıldızıdır, parlayacak;\nO benimdir, o benim milletimindir ancak.",
+            "createdAt": "2026-01-17T20:39:06.811Z",
+            "updatedAt": "2026-01-17T21:15:06.638Z"
+          },
+          {
+            "id": 13,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Sana Yaz Günü Diyeyim mi? (Sonnet 18)",
+            "type": "Şiir",
+            "author": "William Shakespeare",
+            "content": "Seni bir yaz gününe benzetsem mi?\nDaha ılımlısın, daha sakinsin.\nFırtınalar sarsar mayıs tomurcuklarını,\nVe yazın ömrü de pek kısadır.\nAma senin ebedî yazın solmayacak,\nGüzelliğin gözümde eksilmeyecek.",
+            "createdAt": "2026-01-17T20:39:06.812Z",
+            "updatedAt": "2026-01-17T21:15:06.639Z"
+          },
+          {
+            "id": 14,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Umut, Tüylü Bir Şeydir",
+            "type": "Şiir",
+            "author": "Emily Dickinson",
+            "content": "Umut, tüylü bir şeydir içimizde,\nRuhun kıyısına konup durmadan şakır;\nVe asla bir söz istemez bizden,\nEn sert fırtınada bile susmaz.\nNice soğuk diyarlarda duydum onu,\nVe bir kırıntı bile istemedi benden.",
+            "createdAt": "2026-01-17T20:39:06.815Z",
+            "updatedAt": "2026-01-17T21:15:06.641Z"
+          },
+          {
+            "id": 15,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Ey Kaptan! Kaptanım!",
+            "type": "Şiir",
+            "author": "Walt Whitman",
+            "content": "Ey Kaptan! Kaptanım! Yolculuk bitti artık,\nGemimiz atlattı fırtınayı, ödül ufukta yakın;\nLiman göründü, çanlar çalıyor, halk sevinç içinde,\nAma sen, kaptanım, güvertede yatıyorsun kanlar içinde.",
+            "createdAt": "2026-01-17T20:39:06.816Z",
+            "updatedAt": "2026-01-17T21:15:06.642Z"
+          },
+          {
+            "id": 16,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Annabel Lee",
+            "type": "Şiir",
+            "author": "Edgar Allan Poe",
+            "content": "Yıllar yıllar önce, deniz kıyısındaki bir diyarda,\nYaşayan bir kız vardı, Annabel Lee;\nSevgiyle sevdik birbirimizi, tek derdimiz aşktı,\nTa ki soğuk rüzgârlar esip onu alıncaya dek benden.",
+            "createdAt": "2026-01-17T20:39:06.817Z",
+            "updatedAt": "2026-01-17T21:15:06.643Z"
+          },
+          {
+            "id": 17,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Kaplan",
+            "type": "Şiir",
+            "author": "William Blake",
+            "content": "Kaplan! Kaplan! gece ormanlarında pırıl pırıl,\nHangi ölümsüz el ya da göz\nKurdu senin korkunç simetrini\nO kızıl ateş içinde?\nHangi çekiç, hangi örs,\nDövdü yüreğini alevde?",
+            "createdAt": "2026-01-17T20:39:06.818Z",
+            "updatedAt": "2026-01-17T21:15:06.645Z"
+          },
+          {
+            "id": 18,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Albatros",
+            "type": "Şiir",
+            "author": "Charles Baudelaire",
+            "content": "Çoğu kez tayfalar eğlenmek için yakalar albatrosu,\nUğuldayan geminin ardında süzülen o soylu kuşu;\nGöklerin kralı, güvertede şimdi biçare,\nDev kanatları ayaklarına engel, yürüyemez naçar.",
+            "createdAt": "2026-01-17T20:39:06.819Z",
+            "updatedAt": "2026-01-17T21:15:06.647Z"
+          },
+          {
+            "id": 19,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Vadide Uyuyan",
+            "type": "Şiir",
+            "author": "Arthur Rimbaud",
+            "content": "Yeşil bir vadidir, kıvrılır gümüş dere,\nGüneşten pırıltılar düşer çimenlere;\nGenç bir asker uyur, gülümser gibi dingin,\nGöğsünde iki kızıl delik—durgun, sessiz, derin.",
+            "createdAt": "2026-01-17T20:39:06.820Z",
+            "updatedAt": "2026-01-17T21:15:06.649Z"
+          },
+          {
+            "id": 20,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Arkaik Apollon Gövdesi",
+            "type": "Şiir",
+            "author": "Rainer Maria Rilke",
+            "content": "Bu gövde, başı olmasa da, içten içe ışır,\nGövdesinin kıvrımından bir güneş gibi akar;\nVe fısıldar bize: Yaşamını değiştir.",
+            "createdAt": "2026-01-17T20:39:06.821Z",
+            "updatedAt": "2026-01-17T21:15:06.650Z"
+          },
+          {
+            "id": 21,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Yaşlandığın Zaman",
+            "type": "Şiir",
+            "author": "W. B. Yeats",
+            "content": "Yaşlandığın zaman, saçların ağarıp başın eğildiğinde,\nBu kitabı al da yavaşça oku;\nNice gözler sevmişti güzelliğini,\nAma biri, içindeki hacı ruhu sevdi.",
+            "createdAt": "2026-01-17T20:39:06.822Z",
+            "updatedAt": "2026-01-17T21:15:06.651Z"
+          },
+          {
+            "id": 22,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Yarın, Şafakta",
+            "type": "Şiir",
+            "author": "Victor Hugo",
+            "content": "Yarın, şafakta, kırlar ağarırken,\nYola çıkacağım—bak görürsün;\nSenden uzak daha duramam artık,\nYalnız yürüyeceğim, gözlerim düşüncemde.",
+            "createdAt": "2026-01-17T20:39:06.823Z",
+            "updatedAt": "2026-01-17T21:15:06.652Z"
+          },
+          {
+            "id": 23,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Aklın Korkudan Azade Olduğu Yerde",
+            "type": "Şiir",
+            "author": "Rabindranath Tagore",
+            "content": "Aklın korkudan azade olduğu yerde,\nBaşın dimdik tutulduğu bir ülkede;\nSöz, gerçeğe uzandığında,\nEmek, kusursuzluğa doğru genişlediğinde—\nEy Rabbim, ülkemin uyanışını oraya götür.",
+            "createdAt": "2026-01-17T20:39:06.824Z",
+            "updatedAt": "2026-01-17T21:15:06.653Z"
+          },
+          {
+            "id": 24,
+            "bucketId": "e1d2c3b4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "title": "Sizi Sevdim",
+            "type": "Şiir",
+            "author": "Alexander Pushkin",
+            "content": "Sizi sevdim—belki o sevgi içinizde hâlâ,\nTam sönmedi; fakat rahatsız etmeyeyim sizi.\nSizi sessizce, umutsuzca sevdim;\nAllah versin, biri sizi benim kadar sevsin.",
+            "createdAt": "2026-01-17T20:39:06.825Z",
+            "updatedAt": "2026-01-17T21:15:06.654Z"
+          }
+        ]
+      }
+    ]
+  }
+]

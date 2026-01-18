@@ -1,0 +1,208 @@
+.container {
+    width: 100%;
+    max-width: 1152px;
+    /* max-w-6xl */
+    background-color: rgba(15, 23, 42, 0.8);
+    /* slate-900/80 */
+    backdrop-filter: blur(4px);
+    border: 1px solid #334155;
+    /* slate-700 */
+    border-radius: 1rem;
+    /* rounded-2xl */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    color: white;
+    padding-bottom: 1.5rem;
+}
+
+.header {
+    font-size: 1.875rem;
+    /* text-3xl */
+    font-weight: 700;
+    color: #67e8f9;
+    /* cyan-300 */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 0 1rem 1.5rem 1rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+.wheelSection {
+    background-color: rgba(2, 6, 23, 0.6);
+    /* slate-950/60 */
+    border-radius: 0.75rem;
+    border: 1px solid #334155;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .wheelSection {
+        grid-column: span 2 / span 2;
+        grid-row: span 3 / span 3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .wheelSection {
+        grid-column: span 3 / span 3;
+        grid-row: span 4 / span 4;
+    }
+}
+
+.resultSection {
+    background-color: rgba(30, 41, 59, 0.7);
+    /* slate-800/70 */
+    backdrop-filter: blur(8px);
+    border: 1px solid #475569;
+    /* slate-600 */
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .resultSection {
+        grid-row: span 3 / span 3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .resultSection {
+        grid-row: span 4 / span 4;
+        grid-column-start: 4;
+        grid-column: span 2 / span 2;
+    }
+}
+
+.controlsSection {
+    background-color: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid #475569;
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .controlsSection {
+        grid-column: span 2 / span 2;
+    }
+}
+
+@media (min-width: 1024px) {
+    .controlsSection {
+        grid-column: span 3 / span 3;
+        grid-row-start: 5;
+    }
+}
+
+.uploadSection {
+    background-color: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid #475569;
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .uploadSection {
+        grid-column: span 1 / span 1;
+        grid-column-start: 3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .uploadSection {
+        grid-column: span 2 / span 2;
+        grid-column-start: 4;
+        grid-row-start: 5;
+    }
+}
+
+.spinBtn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(to right, #0891b2, #1d4ed8);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+}
+
+.spinBtn:hover {
+    background: linear-gradient(to right, #06b6d4, #2563eb);
+}
+
+.label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #cbd5e1;
+    /* slate-300 */
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    background-color: #334155;
+    /* slate-700 (fallback for file input look) */
+}
+
+/* Specific SVG styles */
+.cabin {
+    stroke: #b26e00;
+    stroke-width: 1;
+}
+
+.cabinNumberNight {
+    font-size: 12px;
+    fill: #0f172a;
+    font-weight: 800;
+}
+
+.rimLight {
+    transition: fill 0.1s;
+}
+
+/* Custom Scrollbar */
+.resultSection :global(.custom-scrollbar)::-webkit-scrollbar {
+    width: 4px;
+}
+
+.resultSection :global(.custom-scrollbar)::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.resultSection :global(.custom-scrollbar)::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 10px;
+}
+
+.resultSection :global(.custom-scrollbar)::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.5);
+}

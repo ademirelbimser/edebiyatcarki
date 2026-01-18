@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ademirel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-7442371Ad.}
+      POSTGRES_DB: ${POSTGRES_DB:-literary_wheel}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-ademirel}:${POSTGRES_PASSWORD:-7442371Ad.}@db:5432/${POSTGRES_DB:-literary_wheel}?schema=public"
+      AUTH_SECRET: ${AUTH_SECRET:-your-generated-random-secret-here}
+      AUTH_URL: ${AUTH_URL:-https://edebiyat.taztech.tr}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY}
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
