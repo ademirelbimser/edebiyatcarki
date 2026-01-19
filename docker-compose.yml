@@ -10,6 +10,9 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-proxy-network
+
 
   app:
     build:
@@ -28,6 +31,12 @@ services:
       TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-0x4AAAAAACNL8dUbSUxMqtJV5_K5d-u0fMs}
     depends_on:
       - db
+    networks:
+      - my-proxy-network
+
+networks:
+  my-proxy-network:
+    external: true
 
 volumes:
   postgres_data:
