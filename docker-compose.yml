@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "3000:3000"
+      - "3041:3000"
     environment:
       DATABASE_URL: "postgresql://${POSTGRES_USER:-ademirel}:${POSTGRES_PASSWORD:-7442371Ad.}@db:5432/${POSTGRES_DB:-literary_wheel}?schema=public"
       AUTH_SECRET: ${AUTH_SECRET:-your-generated-random-secret-here}
