@@ -1,18 +1,13 @@
 #!/bin/sh
+set -e
 
-# Veritabanının hazır olmasını bekle (opsiyonel ama önerilir)
 echo "Veritabanı bağlantısı kontrol ediliyor..."
 
-# Prisma şemasını veritabanına uygula
 echo "Prisma db push çalıştırılıyor..."
-npx prisma db push --accept-data-loss
+npx prisma db push --skip-generate --accept-data-loss
 
-# Başlangıç verilerini yükle (Seed)
-# Not: seed.ts dosyanız verileri sıfırlayıp tekrar yüklediği için 
-# her yeniden başlatmada verilerin sıfırlanmasını istemiyorsanız burayı yorum satırı yapabilirsiniz.
 echo "Seed datası yükleniyor..."
-npx prisma db seed
+npx tsx prisma/seed.ts || echo "⚠️  Seed hatası, devam ediliyor..."
 
-# Uygulamayı başlat
 echo "Uygulama başlatılıyor..."
 exec "$@"
