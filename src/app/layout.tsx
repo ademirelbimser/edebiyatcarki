@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Edebiyat Çarkı",
-  description: "Next.js Edebiyat Çarkı Projesi",
+  description: "Bilsem Derince@Kocaeli Edebiyat Çarkı",
 };
 
 import { Providers } from "@/components/Providers";
