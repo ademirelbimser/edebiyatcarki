@@ -3,6 +3,8 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+RUN apk add --no-cache openssl libc6-compat
+
 COPY package.json package-lock.json ./
 RUN npm ci
 
