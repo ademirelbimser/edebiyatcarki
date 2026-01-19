@@ -27,7 +27,7 @@ export async function POST(req: Request) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    secret: process.env.TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA",
+                    secret: process.env.TURNSTILE_SECRET_KEY || "0x4AAAAAACNL8dUbSUxMqtJV5_K5d-u0fMs",
                     response: turnstileToken,
                 }),
             }
